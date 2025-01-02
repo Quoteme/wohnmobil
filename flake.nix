@@ -24,6 +24,7 @@
             buildInputs = [ esp-idf-full ];
 
             shellHook = ''
+              export ESP_IDF_PATH=${esp-idf-full}
               exec ${fish}/bin/fish --init-command "source ${esp-idf-full}/export.fish"
             '';
           };
