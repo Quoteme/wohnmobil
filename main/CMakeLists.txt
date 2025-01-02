@@ -1,2 +1,1 @@
-idf_component_register(SRCS "WOHNMOBIL.c"
-                    INCLUDE_DIRS ".")
+idf_component_register(SRCS "WOHNMOBIL.cpp" INCLUDE_DIRS ".")
