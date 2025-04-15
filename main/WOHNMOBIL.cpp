@@ -104,24 +104,17 @@ extern "C" void app_main() {
   // RGBLED led2(GPIO_NUM_6, GPIO_NUM_7, GPIO_NUM_8, LEDC_CHANNEL_3,
   //             LEDC_CHANNEL_4, LEDC_CHANNEL_5);
 
-  float hue1 = 0.0, hue2 = 180.0;
+  float hue = 0.0;
   while (true) {
-    uint32_t r1, g1, b1, r2, g2, b2;
+    uint32_t r, g, b;
 
     // First LED transitions through colors
-    hsvToRgb(hue1, 1.0, 1.0, r1, g1, b1);
-    led1.setColor(r1, g1, b1, 100);
+    hsvToRgb(hue, 1.0, 1.0, r, g, b);
+    led1.setColor(r, g, b, 100);
 
-    // Second LED transitions through colors, offset by 180 degrees
-    hsvToRgb(hue2, 1.0, 1.0, r2, g2, b2);
-    // led2.setColor(r2, g2, b2, 100);
-
-    hue1 += 1.0;
-    hue2 += 1.0;
-    if (hue1 >= 360.0)
-      hue1 = 0.0;
-    if (hue2 >= 360.0)
-      hue2 = 0.0;
+    hue += 1.0;
+    if (hue >= 360.0)
+      hue = 0.0;
 
     vTaskDelay(10 / portTICK_PERIOD_MS);
   }
