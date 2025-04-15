@@ -10,7 +10,7 @@
     esp32.url = "github:mirrexagon/nixpkgs-esp-dev";
   };
 
-  outputs = { self, nixpkgs, flake-utils, esp32 }@inputs:
+  outputs = { nixpkgs, flake-utils, esp32, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -18,15 +18,14 @@
           overlays = [ (import "${esp32}/overlay.nix") ];
         };
       in rec {
-        defaultPackage = packages.wohnmobil;
-        packages.wohnmobil = with pkgs;
+        devShells.default = with pkgs;
           mkShell {
             buildInputs = [ esp-idf-full ];
 
-            shellHook = ''
-              export ESP_IDF_PATH=${esp-idf-full}
-              exec ${fish}/bin/fish --init-command "source ${esp-idf-full}/export.fish"
-            '';
+            # shellHook = ''
+            #   source ${esp-idf-full}/export.sh
+            # '';
           };
+
       });
 }
